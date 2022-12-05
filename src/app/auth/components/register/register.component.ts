@@ -1,16 +1,18 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Store } from "@ngrx/store";
+import { registerAction } from "../../store/actions/register.action";
 
 @Component({
-  selector: 'ms-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  selector: "ms-register",
+  templateUrl: "./register.component.html",
+  styleUrls: ["./register.component.scss"]
 })
 export class RegisterComponent implements OnInit {
   // @ts-ignore
-  form: FormGroup
+  form: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private store: Store) {
   }
 
   ngOnInit(): void {
@@ -19,10 +21,10 @@ export class RegisterComponent implements OnInit {
 
   initializeForm(): void {
     this.form = this.fb.group({
-      username: ['', Validators.required],
-      email: '',
-      password: ''
-    })
+      username: ["", Validators.required],
+      email: "",
+      password: ""
+    });
 
     console.log(this.form.valid);
   }
@@ -30,6 +32,7 @@ export class RegisterComponent implements OnInit {
   onSubmit(): void {
     console.log(this.form.value);
     console.log(this.form.valid);
-
+    // @ts-ignore
+    this.store.dispatch(registerAction(this.form.value));
   }
 }
