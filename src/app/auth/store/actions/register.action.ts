@@ -3,4 +3,6 @@ import { ActionTypes } from "../actionTypes";
 
 export const registerAction = createAction(
   ActionTypes.REGISTER,
-  props<{ username: string; email: string; password: string }>)();
+  props<{username: string; password: string; email: string}>()
+)
+
